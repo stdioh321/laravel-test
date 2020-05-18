@@ -1,0 +1,49 @@
+<ng-sidebar-container [showBackdrop]="true" [allowSidebarBackdropControl]="true" class="sidebar-container-home">
+    <ng-sidebar [(opened)]="_opened" [closeOnClickOutside]="true" [closeOnClickBackdrop]="true" [showBackdrop]="true"
+        mode='slide'>
+        <div class="sidemenu-wrapper">
+            <div class="user-wrapper mb-1">
+                <h2 class="user text-primary font-weight-bolder text-center mb-1">
+                    {{ authService?.user?.name | titlecase }}
+                </h2>
+                <div class="avatar-wrapper">
+                    <div class="avatar pointer" (click)="_opened = false" routerLink="/user/update">
+                        <img avatarImage="{{authService?.user?.image}}">
+                    </div>
+                </div>
+            </div>
+            <div routerLink="/items" class="sidemenu-item pointer text-dark" (click)="_opened = false"
+                routerLinkActive="active">
+                <a> <i class="fa fa-book fa-lg"></i> {{'item.items' | translate}}</a>
+            </div>
+            <div routerLink="/brands" class="sidemenu-item pointer text-dark" (click)="_opened = false"
+                routerLinkActive="active">
+                <a> <i class="fa fa-ravelry fa-lg"></i> {{'brand.brands' | translate}}</a>
+            </div>
+            <div routerLink="/models" class="sidemenu-item pointer text-dark" (click)="_opened = false"
+                routerLinkActive="active">
+                <a> <i class="fa fa-cube fa-lg"></i> {{'model.models' | translate}}</a>
+            </div>
+            <div routerLink="/parts" class="sidemenu-item pointer text-dark" (click)="_opened = false"
+                routerLinkActive="active">
+                <a> <i class="fa fa-gear fa-lg"></i> {{'part.parts' | translate}}</a>
+            </div>
+            <div class="sidemenu-item pointer " (click)="logout()">
+                <a class="text-danger"> <i class="fa fa-user-times fa-lg"></i> {{'common.logout' | translate}}</a>
+            </div>
+        </div>
+    </ng-sidebar>
+    <div ng-sidebar-content>
+        <div class="container">
+            <div class="row border-bottom border-secondary mb-1">
+                <div class="col-md-12 mt-2">
+                    <button class="btn menu-icon p-0" (click)="_opened = !_opened">
+                        <i class="fa  fa-2x" [class.fa-bars]="!_opened" [class.fa-times]="_opened"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <router-outlet></router-outlet>
+
+    </div>
+</ng-sidebar-container>

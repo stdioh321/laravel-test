@@ -1,0 +1,148 @@
+<div class="container">
+    
+    
+    <div class="row" *ngIf="data !== undefined">
+        <div class="col-md-12">
+            <h2>{{ (isLogged? 'common.update' : 'common.add') | translate:{name:('common.user' | translate)}  }}</h2>
+        </div>
+        <div class="col-md-12">
+
+        </div>
+        <div class="col-md-12">
+            <form #f="ngForm" (submit)='onSubmit(f)'>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="">{{'register.name' | translate}} <span class="text-muted small">(*
+                                {{'common.required' | translate:{name:''} | titlecase }})</span></label>
+                        <input type="text" class="form-control" [placeholder]="'register.name' | translate" name="name"
+                            #name="ngModel" [ngModel]="data?.name" required pattern="\D+"
+                            [ngClass]="{'is-invalid' : name?.errors && f.submitted}" />
+
+                        <form-errors-messages *ngIf="f?.submitted" [fieldName]="'common.name' | translate"
+                            [fControl]="name">
+                        </form-errors-messages>
+
+                    </div>
+                    <div class="form-group col-md-6" *ngIf="!data?.oauth_id">
+                        <label for="">{{'register.username' | translate}} <span class="text-muted small">(*
+                                {{'common.required' | translate:{name:''} | titlecase }})</span></label>
+                        <input type="text" class="form-control" [placeholder]="'register.username' | translate"
+                            name="user" #user="ngModel" [ngModel]="data?.user" required pattern="[^ ]+"
+                            [ngClass]="{'is-invalid' : user?.errors && f.submitted}" />
+                        <form-errors-messages *ngIf="f?.submitted" [fieldName]="'common.user' | translate"
+                            [fControl]="user">
+                        </form-errors-messages>
+
+                    </div>
+                    <div class="form-group col-md-6" *ngIf="!data?.oauth_id">
+                        <label for="">{{'register.email' | translate}} <span class="text-muted small">(*
+                                {{'common.required' | translate:{name:''} | titlecase }})</span></label>
+                        <input type="email" class="form-control" [placeholder]="'register.email' | translate"
+                            name="email" #email="ngModel" [ngModel]="data?.email" required pattern="[\w\.]+@\w+(\.\w+)+"
+                            [ngClass]="{'is-invalid' : email?.errors && f.submitted}" />
+                        <div class="message text-muted small">
+                            Ex: abc@gmail.com
+                        </div>
+                        <form-errors-messages *ngIf="f?.submitted" [fieldName]="'common.email' | translate"
+                            [fControl]="email">
+                        </form-errors-messages>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">{{'register.birthdate' | translate}}</label>
+                        <div class="input-group">
+
+                            <input matInput [matDatepicker]="picker" class="form-control"
+                                [placeholder]="'register.birthdate' | translate" name="birthdate" #birthdate="ngModel"
+                                [ngModel]="data?.birthdate"
+                                [ngClass]="{'is-invalid' : birthdate?.errors && f.submitted}"
+                                (dateChange)="onBirthdateChange('change', $event)">
+                            <div class="input-group-append">
+                                <div class="input-group-text pointer" (click)="picker.open()">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                </div>
+                            </div>
+
+                        </div>
+                        <mat-datepicker touchUi #picker></mat-datepicker>
+
+                        <form-errors-messages *ngIf="f?.submitted" [fieldName]="'common.birthdate' | translate"
+                            [fControl]="birthdate">
+                            <!-- <div *ngIf="birthdate?.errors?.mask" [@inOut]>*
+                                {{'common.date_invalid' | translate  }}</div> -->
+                            <div *ngIf="birthdate?.errors?.matDatepickerParse" [@inOut]>*
+                                {{'common.date_invalid' | translate  }}</div>
+                        </form-errors-messages>
+
+                    </div>
+                    <div class="form-group col-md-6" *ngIf="!data?.oauth_id">
+                        <label for="">{{'register.password' | translate}}
+                            <span class="text-muted small" *ngIf="!isLogged">(*
+                                {{'common.required' | translate:{name:''} | titlecase }})</span></label>
+                        <input type="password" class="form-control" [placeholder]="'register.password' | translate"
+                            name="password" #password="ngModel" [ngModel]="null"  minlength="4"
+                            [ngClass]="{'is-invalid' : password?.errors && f.submitted}" [required]="!data" />
+                        <div class="message text-muted small">
+                            {{'common.min_digits' | translate:{name:4} }}
+                        </div>
+                        <form-errors-messages *ngIf="f?.submitted" [fieldName]="'common.password' | translate"
+                            [fControl]="password">
+                        </form-errors-messages>
+
+                    </div>
+                    
+
+
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3 col-6">
+                        <label for="">{{'common.image' | translate}}</label>
+                        <input type="text" hidden name="image" #image="ngModel" [ngModel]="null">
+                        <div>
+                            <label for="my-img" class="btn btn-block text-white pointer" style="transition: all 1s; "
+                                [ngClass]="[(tmpImage?.src ? 'btn-warning' : 'btn-primary')]">
+                                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                {{ (tmpImage?.src ? 'register.change_image' : 'register.add_image') | translate}}
+                                <input type="file" class="form-control" id="my-img" [placeholder]="'register.image' | translate"
+                                    accept="image/*" (change)="onImageChange($event, image)" hidden />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3 col-6">
+                        <div class="img-preview-wrapper" [ngClass]="{'d-none' : !tmpImage?.src}">
+                            <img #tmpImage class="img-preview" alt="">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6" *ngIf="!isLogged">
+                        <button class="btn btn-warning btn-block text-white" type="button"
+                            routerLink="/login">{{'common.back' | translate}}</button>
+                    </div>
+                    <!-- <div class="form-group col-md-6" *ngIf="isLogged">
+                        <button class="btn btn-danger btn-block" type="button"
+                            (click)="resetData()">{{'common.reset' | translate}}</button>
+                    </div> -->
+                    <div class="form-group col-md-6">
+                        <button class="btn btn-primary btn-block" type="submit">{{'common.send' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="row" *ngIf="data === undefined">
+        <div class="col-md-12">
+            <h2 class="text-danger">
+                {{'common.error-loading-data' | translate}}
+            </h2>
+            <button class="btn btn-success btn-lg" (click)="ngOnInit()">
+                Reload
+            </button>
+        </div>
+    </div>
+
+</div>

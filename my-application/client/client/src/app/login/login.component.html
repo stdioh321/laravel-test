@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="login-wrapper">
+                <div class="login">
+                    <div class="logo">
+                        <img src="https://image.flaticon.com/icons/svg/2002/2002010.svg" alt="">
+                    </div>
+                    <form #f="ngForm" (submit)="onSubmit(f)">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="">{{'login.username' | translate}}</label>
+                                <input type="text" class="form-control" [placeholder]="'login.username' | translate"
+                                    #username="ngModel" [ngModel]="null" name="username"
+                                    [ngClass]="{'is-invalid' : username?.errors && f.submitted}" required
+                                    minlength="3" />
+
+                                <div class="ferrors-wrapper" *ngIf="username?.errors && f?.submitted" [@inOut]>
+                                    <div class="ferror" *ngIf="username?.errors?.required">*
+                                        {{ 'common.required' | translate:{name:''} }}</div>
+                                    <div class="ferror" *ngIf="username?.errors?.minlength">*
+                                        {{ 'common.min_digits' | translate:{name:3} }}</div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="">{{'login.password' | translate}}</label>
+                                <input type="password" class="form-control" [placeholder]="'login.password' | translate"
+                                    #password="ngModel" [ngModel]="null" name="password"
+                                    [ngClass]="{'is-invalid' : password?.errors && f.submitted}" required
+                                    minlength="3" />
+                                <div class="ferrors-wrapper" *ngIf="password?.errors && f?.submitted" [@inOut]>
+                                    <div class="ferror" *ngIf="password?.errors?.required">*
+                                        {{ 'common.required' | translate:{name:''} }}</div>
+                                    <div class="ferror" *ngIf="password?.errors?.minlength">*
+                                        {{ 'common.min_digits' | translate:{name:3} }}</div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 my-1" *ngIf="msgError" [@inOut]>
+                                <div class="alert alert-danger">
+                                    {{msgError}}
+                                </div>
+                            </div>
+                            
+                            <div class="form-group col-md-6  offset-md-3">
+                                <button class="btn btn-primary btn-block" type="submit">
+                                    {{'common.login' | translate}}
+                                </button>
+                            </div>
+                            <div class="form-group col-md-6 offset-md-3 mt-md-3">
+                                <button class="btn btn-success btn-block" type="button" routerLink="/register">
+                                    {{'register.register' | translate}}
+                                </button>
+                            </div>
+                            <div class="form-group col-md-6" *ngIf="oauthService?.FB" [@inOut]>
+                                <button
+                                    class="btn btn-block bt-facebook text-white d-flex align-items-center justify-content-center font-weight-bolder"
+                                    type="button" (click)="loginFacebook()">
+                                    <i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i> <span
+                                        class="ml-2">Facebook</span>
+                                </button>
+                            </div>
+                            <div class="form-group col-md-6" *ngIf="oauthService?.GoogleAuth" [@inOut]>
+                                <button 
+                                    class="btn btn-light border border-dark btn-block bt-google d-flex align-items-center justify-content-center font-weight-bolder"
+                                    type="button" (click)="loginGoogle()">
+                                    <i class="fa fa-google fa-lg" aria-hidden="true"></i> <span
+                                        class="ml-2">Google</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

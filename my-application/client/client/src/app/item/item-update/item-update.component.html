@@ -1,0 +1,153 @@
+<div class="container">
+    <div class="row" *ngIf="dataExtra.brands">
+        <div class="col-md-12">
+            <h3 class="d-flex align-items-center justify-content-between">
+                <span>
+                    {{ isAddRoute ? ('item-update.add' | translate) : ('item-update.edit' | translate)}} Item
+                </span>
+
+                <button class="btn text-success " *ngIf="data===undefined" (click)="lAllData()">
+                    <i class="fa fa-refresh fa-2x " aria-hidden="true"></i>
+                </button>
+            </h3>
+            <hr>
+        </div>
+        <hr>
+        <div class="col-md-12">
+            <form #f="ngForm" (submit)="onSubmit(f)">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="">{{'item.name' | translate}}</label>
+                        <input type="text" class="form-control" name="name" #name="ngModel" [ngModel]="data?.name"
+                            required pattern="\D+" [placeholder]="'item.name' | translate"
+                            [ngClass]="{'is-invalid':name.invalid && f.submitted}">
+
+                        <div class="ferrors-wrapper" *ngIf="name?.errors && f.submitted" [@inOut]>
+                            <div class="ferror" *ngIf="name?.errors?.required">* {{'item-update.required' | translate}}
+                            </div>
+                            <div class="ferror" *ngIf="name?.errors?.pattern">*
+                                {{'item-update.only-letters' | translate}}</div>
+                            <div class="ferror" *ngIf="name?.errors?.conflit">* {{'item-update.name-used' | translate}}
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">
+                            {{'item-update.color' | translate}}
+                        </label>
+
+                        <!-- <input type="text" class="form-control" name="color" #color="ngModel" [ngModel]="data?.color"
+                            [placeholder]="'item-update.color' | translate" 
+                            [ngClass]="{'is-invalid':color.invalid && f.submitted}"> -->
+
+                        <ng-select name="color" #color="ngModel" [ngModel]="data?.color"
+                            [placeholder]="'item-update.color' | translate"
+                            [ngClass]="{'is-invalid':color.invalid && f.submitted}" pattern="\D+" [addTag]="true">
+                            <ng-option *ngFor="let color of colorsList" [value]="color">{{color}}</ng-option>
+                        </ng-select>
+                        <div class="ferrors-wrapper" *ngIf="color?.errors && f.submitted" [@inOut]>
+                            <div class="ferror" *ngIf="color?.errors?.pattern">
+                                * {{'item-update.only-letters' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="">{{'item-update.price' | translate}}</label>
+                        <!-- <input type="text" class="form-control" name="price" #price="ngModel" [ngModel]="data?.price"
+                            required placeholder="Price" mask="0*.00" [dropSpecialCharacters]="false" prefix="$ "> -->
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="text" class="form-control" name="price" #price="ngModel"
+                                [ngModel]="data?.price" required [placeholder]="'item-update.price' | translate"
+                                (input)="onPriceChange(price)" pattern="[\d\.]+"
+                                [ngClass]="{'is-invalid':price?.invalid && f?.submitted}">
+                        </div>
+
+                        <div class="ferrors-wrapper" *ngIf="price?.errors && f.submitted" [@inOut]>
+                            <div class="ferror" *ngIf="price?.errors?.required">* {{'item-update.required' | translate}}
+                            </div>
+                            <div class="ferror" *ngIf="price?.errors?.pattern">*
+                                {{'item-update.only-numbers' | translate}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">{{'item-update.brand' | translate}}</label>
+                        <ng-select [placeholder]="'common.choose' | translate" name="id_brand" #id_brand="ngModel"
+                            [ngModel]="data?.id_brand" required (change)="onBrandChange(id_brand)"
+                            [ngClass]="{'is-invalid': id_brand?.errors && f.submitted}">
+                            <ng-option *ngFor="let brand of dataExtra?.brands" [value]="brand?.id">{{brand?.name}}
+                            </ng-option>
+                        </ng-select>
+                        <div class="ferrors-wrapper" *ngIf="id_brand?.errors && f.submitted" [@inOut]>
+                            <div class="ferror" *ngIf="id_brand?.errors?.required">*
+                                {{'item-update.required' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md">
+                        <label for="">{{'item-update.model' | translate}}</label>
+                        <ng-select [placeholder]="'item-update.model' | translate" name="id_model" #id_model="ngModel"
+                            [ngModel]="data?.id_model" required
+                            [ngClass]="{'is-invalid': id_model?.errors && f.submitted}">
+                            <ng-option *ngFor="let model of models" [value]="model?.id">{{model?.name}}
+                            </ng-option>
+                        </ng-select>
+                        <div class="ferrors-wrapper" *ngIf="id_model?.errors && f.submitted" [@inOut]>
+                            <div class="ferror" *ngIf="id_model?.errors?.required">*
+                                {{'item-update.required' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md d-flex" *ngIf="data?.created_at">
+                        <label for="">{{'item-update.created_at' | translate}}</label>
+                        <div class="text-success ml-2">{{data?.created_at | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                    </div>
+                    <div class="form-group col-md d-flex" *ngIf="data?.updated_at">
+                        <label for="">{{'item-update.updated_at' | translate}}</label>
+                        <div class="text-info ml-2">{{data?.updated_at | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                    </div>
+                </div>
+                <div class="form-row" [@inOut] *ngIf="msgError">
+                    <div class="form-group col-md">
+                        <div class="error-msg alert alert-danger">
+                            {{msgError}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <button class="btn btn-warning btn-block text-white" type="button" routerLink="/tmp">
+                            {{'common.back' | translate}}
+                        </button>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <button class="btn btn-primary btn-block" type="submit">{{'common.send' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- <div class="row" *ngIf="dataExtra.brands === null">
+        <div class="col-md-12">
+            Loading
+        </div>
+    </div> -->
+    <div class="row" *ngIf="dataExtra.brands === undefined">
+        <div class="col-md-12 text-center">
+            <div class="text-danger">
+                {{'common.something-wrong' | translate}}
+            </div>
+            <button class="btn btn-success btn-large mt-5" (click)="lAllData()">{{'common.reload' | translate}}</button>
+        </div>
+    </div>
+</div>

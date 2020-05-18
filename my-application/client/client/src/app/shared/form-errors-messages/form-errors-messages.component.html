@@ -1,0 +1,31 @@
+<div class="errors-wrapper">
+    <div class="error-msg" *ngIf="fControl?.errors?.required" [@inOut]>
+        * {{'common.required' | translate:{name:fieldName} }}
+    </div>
+    <div class="error-msg" *ngIf="fControl?.errors?.maxlength" [@inOut]>
+        * {{'common.max_digits' | translate:{name:fControl?.errors?.maxlength?.requiredLength} }}
+    </div>
+    <div class="error-msg" *ngIf="fControl?.errors?.minlength" [@inOut]>
+        * {{'common.min_digits' | translate:{name:fControl?.errors?.minlength?.requiredLength} }}
+    </div>
+    <div class="error-msg" *ngIf="fControl?.errors?.pattern" [@inOut]>
+        * {{'common.format_invalid' | translate }}
+    </div>
+    <div class="error-msg" *ngIf="fControl?.errors?.alpha" [@inOut]>
+        * {{'common.only_alpha' | translate }}
+    </div>
+    <div class="error-msg" *ngIf="fControl?.errors?.alpha_num" [@inOut]>
+        * {{'common.only_alpha_num' | translate }}
+    </div>
+    <div class="error-msg" *ngIf="fControl?.errors?.alpha_dash" [@inOut]>
+        * {{'common.only_alpha_dash' | translate }}
+    </div>
+    <div class="error-msg" *ngIf="fControl?.errors?.numeric" [@inOut]>
+        * {{'common.only_numeric' | translate }}
+    </div>
+    <div class="error-msg" *ngIf="fControl?.errors?.unique" [@inOut]>
+        * {{'common.already_used' | translate:{name:fieldName} }}
+    </div>
+
+    <ng-content></ng-content>
+</div>

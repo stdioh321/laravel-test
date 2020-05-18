@@ -1,0 +1,20 @@
+@import "assets/styles/custom";
+
+
+// Font-Awsome 
+// $fa-font-path: "../node_modules/font-awesome/fonts";
+// @import '../node_modules/font-awesome/scss/font-awesome';
+@import '~font-awesome/css/font-awesome.css';
+
+// ANIMATE.CSS
+// @import '~animate_css/animate.min.css';
+
+// NG-SELECT
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+// NGX-TOASTR
+@import '~ngx-toastr/toastr';
+
+// CUSTOM
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

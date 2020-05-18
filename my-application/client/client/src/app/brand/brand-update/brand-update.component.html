@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>
+                {{ (isAddRoute ? 'common.add':'common.update') | translate:{name:('brand.brands' | translate)} }}
+            </h2>
+        </div>
+        <div class="col-md-12">
+            <form #f="ngForm" (submit)="onSubmit(f)">
+                <div class="form-row">
+                    <div class="form-group col-md">
+                        <label for="">{{'common.name' | translate}}</label>
+                        <input type="text" class="form-control" #name="ngModel" name="name" [ngModel]="data?.name"
+                        [placeholder]="'common.name' | translate"
+                        required pattern="\D+"
+                        [ngClass]="{'is-invalid' : name?.errors && f?.submitted}"
+                        />
+                        <div class="ferrors-wrapper" *ngIf="name?.errors && f.submitted" [@inOut]>
+                            <div class="ferror" *ngIf="name?.errors?.required">* {{'common.required' | translate}}
+                            </div>
+                            <div class="ferror" *ngIf="name?.errors?.pattern">* {{'common.only_letters' | translate}}</div>
+                            <div class="ferror" *ngIf="name?.errors?.conflit">* {{'brand.name-used' | translate}}</div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <button class="btn btn-warning text-white btn-block" type="button" routerLink="/brands">{{'common.back' | translate}}</button>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <button class="btn btn-info btn-block" type="submit">{{'common.send' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+.errors-wrapper {
+ 
+  display: flex;
+  flex-wrap: wrap;
+  ::ng-deep &>div:last-child{
+     margin-bottom: 3px;
+    //  padding-bottom: 3px;
+  }
+  ::ng-deep &>div {
+    color: white;
+    background-color: var(--danger);
+    border-radius: 5px;
+    padding: 5px;
+    font-weight: 600;
+    margin-right: 3px;
+    margin-top: 3px;
+
+    &:not(:last-child) {
+      //   margin-bottom: 5px;
+    }
+  }
+}

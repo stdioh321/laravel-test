@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="d-flex align-items-center justify-content-between">
+                <span>{{'part.parts' | translate}}</span>
+                <button class="btn btn-success" routerLink="/parts/add">
+                    <i class="fa fa-plus fa-lg"></i>
+                </button>
+            </h2>
+
+            <table class="table table-responsive-sm">
+                <thead>
+                    <tr>
+                        <th>{{'common.name' | translate}}</th>
+                        <th>{{'common.description' | translate}}</th>
+                        <th>{{'item.item' | translate}}</th>
+                        <th>{{'common.created_at' | translate}}</th>
+                        <th>{{'common.updated_at' | translate}}</th>
+                        <th class="text-right">{{'common.actions' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let part of data">
+                        <td>{{part?.name}}</td>
+                        <td class="text-truncate" style="max-width: 60px;">{{part?.description}}</td>
+                        <td>{{part?.item?.name}}</td>
+                        <td>{{part?.created_at | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{part?.updated_at | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td class="d-flex align-items-center justify-content-end">
+                            <a class="text-primary" [routerLink]="'update/'+part?.id">
+                                <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+                            </a>
+                            <a class="text-danger ml-1 pointer" (click)="onDeletePart(part)">
+                                <i class="fa fa-close fa-lg" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr *ngIf="data?.length === 0">
+                        <td colspan="6" class="text-info">
+                            {{'common.nothing_found' | translate}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="data === undefined">
+                        <td colspan="6" class="text-danger">
+                            {{'common.not-load-data' | translate}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

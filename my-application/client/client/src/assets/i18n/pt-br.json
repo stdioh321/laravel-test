@@ -1,0 +1,15 @@
+{
+    "common":{
+        "success":"Sucesso"
+    },
+    "item":{
+        "items": "Items",
+        "name": "Nome",
+        "price": "Preco",
+        "color": "Cor",
+        "created": "Criado",
+        "updated": "Atualizado",
+        "actions": "Ações",
+        "realy_delete": "Realmente deletar"
+    }
+}

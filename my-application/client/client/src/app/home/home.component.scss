@@ -1,0 +1,100 @@
+// @import "src/assets/styles/mixins";
+
+.sidebar-container-home {
+  min-height: 100vh;
+
+  ::ng-deep ng-sidebar {
+    .ng-sidebar {
+
+      min-width: 300px;
+      max-width: 300px;
+
+      @media screen and (max-width:575px) {
+        min-width: 230px;
+        max-width: 230px;
+      }
+
+      // transition: width 1s;
+      min-height: 100vh;
+      background: rgba(250, 250, 250, 1);
+
+      .user-wrapper {
+        .avatar-wrapper {
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .avatar {
+            max-width: 170px;
+            max-height: 170px;
+
+            @media screen and (max-width:575px) {
+              max-width: 120px;
+              max-height: 120px;
+            }
+
+            transition: all 1s;
+            border: solid #EFEFEF 5px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+              max-width: 100%;
+              min-width: 100px;
+              min-height: 100px;
+            }
+          }
+        }
+      }
+
+      .sidemenu-wrapper {
+        padding: 20px 13px;
+
+        .sidemenu-item {
+          margin-bottom: 10px;
+          border-bottom: solid black 1px;
+          padding: 5px 1px;
+          font-size: 1.3;
+
+          &.active {
+            font-weight: 900;
+
+            a {
+              color: var(--blue) !important;
+            }
+          }
+
+          &>a {
+            // color: black;
+
+            &>i {
+              width: 30px;
+            }
+
+            &:active {
+              color: black;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@keyframes appear {
+  0% {
+    opacity: 0 !important;
+    background: blue !important;
+  }
+
+  100% {
+    opacity: 1 !important;
+    background: yellowgreen !important;
+  }
+}

@@ -1,0 +1,51 @@
+<head>
+    <title>{{utilsService?.title}}</title>
+</head>
+
+<ngx-spinner bdColor="rgba(30, 30, 30, 0.9)" type="fire" size="large" color="#FFF">
+    <p style="color: #FFF; padding-top: 45px;">Loading...</p>
+</ngx-spinner>
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-md-3 offset-md-9 my-1">
+            <div class="d-flex justify-content-end">
+                <select class="form-control" placeholder="Language" [(ngModel)]="currLang"
+                    (change)="translate.use($event.target.value)">
+                    <option [value]="lang" *ngFor="let lang of langs">{{lang}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- <ng-sidebar-container [showBackdrop]="true" [allowSidebarBackdropControl]="true">
+    <ng-sidebar [(opened)]="_opened" [closeOnClickOutside]="true" [closeOnClickBackdrop]="true" [showBackdrop]="true"
+        mode='slide'>
+        <div class="sidemenu-wrapper">
+            <div routerLink="/items" class="sidemenu-item pointer" (click)="_opened = false" routerLinkActive="active">
+                <a> <i class="fa fa-book fa-lg"></i> Items</a>
+            </div>
+            <div routerLink="/brands" class="sidemenu-item pointer" (click)="_opened = false" routerLinkActive="active">
+                <a> <i class="fa fa-ravelry fa-lg"></i> Brands</a>
+            </div>
+            <div routerLink="/models" class="sidemenu-item pointer" (click)="_opened = false" routerLinkActive="active">
+                <a> <i class="fa fa-cube fa-lg"></i> Models</a>
+            </div>
+        </div>
+    </ng-sidebar>
+    <div ng-sidebar-content>
+        <div class="container">
+            <div class="row border-bottom border-secondary mb-1">
+                <div class="col-md-12">
+                    <button class="btn btn" (click)="_opened = !_opened">
+                        <i class="fa fa-bars fa-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+</ng-sidebar-container> -->
+
+
+<router-outlet></router-outlet>

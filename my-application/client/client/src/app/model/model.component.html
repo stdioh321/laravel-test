@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="row">
+        
+        <div class="col-md-12">
+            <h2 class="d-flex align-items-center justify-content-between">
+                <span>{{'model.models' | translate}}</span>
+                <button class="btn btn-success" routerLink="add">
+                    <i class="fa fa-plus fa-lg"></i>
+                </button>
+            </h2>
+
+            <table class="table table-responsive-sm">
+                <thead>
+                    <tr>
+                        <th>{{'common.name' | translate}}</th>
+                        <th>{{'brand.brand' | translate}}</th>
+                        <th>{{'common.created_at' | translate}}</th>
+                        <th>{{'common.updated_at' | translate}}</th>
+                        <th class="text-right">{{'common.actions' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let model of data">
+                        <td>{{model?.name}}</td>
+                        <td>
+                            {{model?.brand?.name}}
+                        </td>
+                        <td>{{model?.created_at | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{model?.updated_at | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td class="d-flex align-items-center justify-content-end">
+                            <a class="text-primary" [routerLink]="'update/'+model?.id">
+                                <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+                            </a>
+                            <!-- <a class="text-danger ml-1 pointer" (click)="onDeleteBrand(brand)">
+                                <i class="fa fa-close fa-lg" aria-hidden="true"></i>
+                            </a> -->
+                        </td>
+                    </tr>
+                    <tr *ngIf="data?.length == 0">
+                        <td colspan="5" class="text-secondary font-weight-bolder">{{'common.nothing_found' | translate}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="data === undefined">
+                        <td colspan="5">
+                            <button class="btn btn-success btn-large" (click)="loadData()">
+                                {{'common.reload' | translate}}
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

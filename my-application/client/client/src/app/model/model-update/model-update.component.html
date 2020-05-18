@@ -1,0 +1,50 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h2>
+				{{ (isAddRoute ? 'common.add':'common.update') | translate:{name:('model.models' | translate)} }}
+			</h2>
+		</div>
+		<div class="col-md-12">
+			<form #f="ngForm" (submit)="onSubmit(f)">
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="">{{'common.name' | translate}}</label>
+						<input type="text" [placeholder]="'common.name' | translate" class="form-control" #name="ngModel"
+							name="name" [ngModel]="data?.name" required pattern="\D+"
+							[ngClass]="{'is-invalid' : name?.errors && f.submitted}">
+						<div class="ferrors-wrapper" *ngIf="name?.errors && f.submitted" [@inOut]>
+							<div class="ferror" *ngIf="name?.errors?.required">* {{'common.required' | translate:{name:''} }}</div>
+							<div class="ferror" *ngIf="name?.errors?.pattern">* {{'common.only_letters' | translate}}</div>
+							<div class="ferror" *ngIf="name?.errors?.conflit">*
+								{{'common.already_used' | translate:{name:('common.name' | translate)} }} </div>
+						</div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="">{{'brand.brand' | translate}}</label>
+						<ng-select #id_brand="ngModel" [ngModel]="data?.id_brand" name="id_brand" required
+							[ngClass]="{'is-invalid' : id_brand?.errors && f.submitted}" [placeholder]="'brand.brand' | translate">
+							<ng-option *ngFor="let brand of dataExtra" [value]="brand?.id">{{brand?.name}}</ng-option>
+						</ng-select>
+						<div class="ferrors-wrapper" *ngIf="id_brand?.errors && f.submitted" [@inOut]>
+							<div class="ferror" *ngIf="id_brand?.errors?.required">* {{'common.required' | translate:{name:''} }}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<button class="btn btn-block btn-warning text-white" routerLink="/models" type="button">
+							{{'common.back' | translate}}
+						</button>
+					</div>
+					<div class="form-group col-md-6">
+						<button class="btn btn-block btn-primary">
+							{{'common.send' | translate}}
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

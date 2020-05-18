@@ -1,0 +1,60 @@
+@import "variables";
+@import "animations";
+@import "mixins";
+
+
+form {
+
+  .form-row {
+    &>.form-group {
+      &>label {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+ng-select.is-valid {
+  border: solid $green 1px !important;
+  border-radius: 0.25rem;
+}
+
+ng-select.is-invalid {
+  border: solid $red 1px !important;
+  border-radius: 0.25rem;
+}
+
+.ferrors-wrapper {
+  //   position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 1;
+
+  //   margin-bottom: 30px;
+  .ferror {
+    font-weight: bold;
+    color: white;
+    border: solid 1px $red;
+    border-radius: 0.25rem;
+    background-color: $red;
+    padding: 2px 5px;
+    margin-right: 2px;
+    margin-top: 2px;
+    animation: pulse 1s infinite;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+
+
+.toast-container>.ngx-toastr {
+  animation: toastrAppear 0.7s 1;
+}
+
+
+body * {
+  scroll-behavior: smooth;
+}

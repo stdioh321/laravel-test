@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <mat-paginator [length]="size" [pageSize]="pageSize" [pageSizeOptions]="[10]" (page)="onPageChange($event)"
+                [showFirstLastButtons]="true" [pageIndex]="pageIndex" #mP="matPaginator">
+            </mat-paginator>
+        </div>
+        <div class="col-md-12 mt-1">
+            <h2 class="d-flex align-items-center justify-content-between">
+                <span>{{'item.items' | translate}}</span>
+                <button class="btn btn-success" routerLink="/items/add">
+                    <i class="fa fa-plus fa-lg"></i>
+                </button>
+            </h2>
+
+            <table class="table table-responsive-sm table-stripped my-table" matSort
+                (matSortChange)="sortData($event,data)">
+                <thead>
+                    <tr>
+                        <!-- <th>ID</th> -->
+                        <th mat-sort-header="name">
+                            {{'item.name' | translate}}
+                        </th>
+                        <th mat-sort-header="price">{{'item.price' | translate}}</th>
+                        <th mat-sort-header="color">{{'item.color' | translate}}</th>
+                        <th mat-sort-header="created_at">{{'item.created' | translate}}</th>
+                        <th mat-sort-header="updated_at">{{'item.updated' | translate}}</th>
+                        <th class="text-right">{{'item.actions' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of sortedData">
+                        <!-- <td>{{item?.id}}</td> -->
+                        <td>{{item?.name}}</td>
+                        <td>{{item?.price | currency:'$ '}}</td>
+                        <td>
+
+                            <span *ngIf="item?.color;else noColor">
+                                {{item?.color}}
+                            </span>
+                            <ng-template #noColor>
+                                <span class="text-danger font-weight-bold">Nothing</span>
+                            </ng-template>
+                        </td>
+                        <td>{{item?.created_at | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                        <td>{{item?.updated_at | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                        <td class="d-flex align-items-center justify-content-end">
+                            <a class="text-primary" [routerLink]="'update/'+item?.id">
+                                <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+                            </a>
+                            <a class="text-danger ml-1 pointer" (click)="onItemDelete(item)">
+                                <i class="fa fa-close fa-lg" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr *ngIf="data?.length == 0">
+                        <td colspan="4" class="text-secondary font-weight-bolder">
+                            {{'common.nothing-found' | translate}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="data === undefined">
+                        <td colspan="4" class="text-danger font-weight-bolder">
+                            {{'common.something-wrong' | translate}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

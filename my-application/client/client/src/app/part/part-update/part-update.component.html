@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1> {{ (isAdd ? 'common.add' : 'common.update') | translate:{name:( 'part.part' | translate )} }} </h1>
+        </div>
+        <div class="col-md-12" *ngIf="dataExtra">
+            <form #form="ngForm" (submit)="onSubmit(form)">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="">{{'common.name' | translate}}</label>
+                        <input type="text" class="form-control" name="name" #name="ngModel" [ngModel]="data?.name"
+                            [placeholder]="'common.name' | translate" required
+                            [ngClass]="{'is-invalid' : name?.errors && form?.submitted}" />
+                        <form-errors-messages [fieldName]="'common.name' | translate" [fControl]="name"
+                            *ngIf="form?.submitted">
+                        </form-errors-messages>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">{{'item.item' | translate}}</label>
+                        <ng-select #id_item="ngModel" name="id_item" [ngModel]="dataExtra ? data?.id_item : null"
+                            [placeholder]="'item.item' | translate" required
+                            [ngClass]="{'is-invalid' : id_item?.errors && form?.submitted}">
+                            <ng-option *ngFor="let item of dataExtra" [value]="item?.id">{{item?.name}}</ng-option>
+                        </ng-select>
+                        <form-errors-messages [fieldName]="'item.item' | translate" [fControl]="id_item"
+                            *ngIf="form?.submitted">
+                        </form-errors-messages>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="">{{'common.description' | translate}}</label>
+                        <textarea rows="5" class="form-control" [placeholder]="'common.description' | translate"
+                            name="description" #description="ngModel" [ngModel]="data?.description"
+                            [ngClass]="{'is-invalid' : description?.errors && form?.submitted}"></textarea>
+                        <form-errors-messages [fieldName]="'common.description' | translate" [fControl]="description"
+                            *ngIf="form?.submitted">
+                        </form-errors-messages>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <button class="btn btn-warning btn-block text-white" type="button"
+                            routerLink="/parts">{{'common.back' | translate}}</button>
+                    </div>
+                    <div class="form-group col-6">
+                        <button class="btn btn-primary btn-block">{{'common.send' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <ng-container *ngIf="dataExtra === undefined">
+            <div class="col-md-12">
+                <h2 class="text-center text-danger">
+                    {{'common.not-load-data' | translate}}
+                </h2>
+                <div class="text-center">
+                    <button class="btn btn-success btn-lg" type="button" (click)="ngOnInit()">
+                        {{'common.reload' | translate}}
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
