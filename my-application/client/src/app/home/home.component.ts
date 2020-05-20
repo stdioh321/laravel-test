@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { AuthService } from '../auth.service';
 
@@ -7,19 +7,27 @@ import { AuthService } from '../auth.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-
+export class HomeComponent implements OnInit,OnDestroy {
   public _opened = false;
   constructor(
     public apiService: ApiService,
-    public authService: AuthService,
+    public authService: AuthService
   ) { }
 
   ngOnInit() {
+    
     // console.log('HomeComponent');
     // this.loadUserData();
+    // console.log(this.home);
+    
   }
-
+  ngAfterViewInit(){
+    
+  }
+  ngOnDestroy(){
+    
+  }
+  
   toggleSidebar() {
     this._opened = !this._opened;
   }

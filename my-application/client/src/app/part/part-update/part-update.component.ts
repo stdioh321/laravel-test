@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { async } from '@angular/core/testing';
-import { ApiService } from 'src/app/services/api.service';
 import { delay } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
+import { ApiService } from 'src/app/services/api.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
@@ -48,7 +48,11 @@ export class PartUpdateComponent implements OnInit {
     this.data = null;
     this._data = null;
     return this.apiService.partGet(this.id, false, true)
-      .toPromise();
+      .toPromise()
+      .then(res=>{
+        res['id_item'] = parseInt(res['id_item']) || undefined;
+        return res;
+      });
   }
 
   async loadAllData() {
@@ -136,7 +140,7 @@ export class PartUpdateComponent implements OnInit {
         });
       if (invalid) invalid['focus']();
     }
-
+    
   }
 
 }

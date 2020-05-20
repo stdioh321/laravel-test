@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// Route::middleware('auth')->group(function () {
-    Route::get('me', 'AuthController@me');
-// });
-Route::get('login', 'AuthController@login');
-Route::get('logout', 'AuthController@logout');
+Route::get("/", function(){
+    return 'ok';
+});

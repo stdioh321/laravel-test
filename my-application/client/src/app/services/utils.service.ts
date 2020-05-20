@@ -6,7 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UtilsService {
-  public title = "My Application";
+  public title = "LaraTmp";
   constructor() { }
 
 

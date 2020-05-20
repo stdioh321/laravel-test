@@ -62,7 +62,7 @@ export class ModelUpdateComponent implements OnInit {
       if (!this.isAddRoute) {
         this.data = await this.loadData();
         this.data = Array.isArray(this.data) ? this.data[0] : this.data;
-        this.data.id_brand = parseInt(this.data.id_brand);
+        this.data.id_brand = parseInt(this.data.id_brand) || undefined;
       }
     } catch (error) {
       this.data = undefined;

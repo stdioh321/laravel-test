@@ -95,6 +95,12 @@ export class ItemUpdateComponent implements OnInit {
     return this.apiService.itemGet(this.id, false, true)
       .toPromise()
       .then(res => {
+        res['id_brand'] = parseInt(res['id_brand']) || undefined;
+        res['id_model'] = parseInt(res['id_model']) || undefined;
+
+
+        console.log(res);
+        
         return res;
       })
       .catch(err => {
@@ -208,7 +214,8 @@ export class ItemUpdateComponent implements OnInit {
     e.control.setValue(val);
   }
   onBrandChange(brand: NgModel) {
-
+    console.log(brand);
+    
     this.models = [];
     this.models = this.dataExtra.models.filter(item => {
       if (brand.value == item.id_brand) return true;
