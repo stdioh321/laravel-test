@@ -3,7 +3,7 @@ FROM alpine:latest
 
 RUN apk add --update php
 
-ADD . /app
+ADD ./dist/client /app
 
 WORKDIR /app
 
