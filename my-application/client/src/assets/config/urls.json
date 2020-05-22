@@ -1,4 +1,7 @@
 {
-  "urlBase": "https://laratmp-server.herokuapp.com/api/",
-  "urlHost": "https://laratmp-server.herokuapp.com/"
+  "urlBase": "http://localhost:8000/api/",
+  "urlHost": "http://localhost:8000/",
+  
+  "urlRemote": "https://laratmp-server.herokuapp.com/api/",
+  "urlLocal" :  "http://localhost:8000/api/"
 }
